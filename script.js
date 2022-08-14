@@ -1,4 +1,5 @@
 // Assignment code here
+
 // password object
 var pass = {
   amount: 0,
@@ -7,12 +8,12 @@ var pass = {
   lowcase: false,
   upcase: false,
   pool: [],
-  word: NaN,
+  word: "",
   reset: function () {
     this.amount = 0;
     this.spec = pass.num = pass.lowcase = pass.upcase = false;
     this.pool.length = 0;
-    this.word = NaN;
+    this.word = "";
   }
 };
 // constants - strings spread into arrays
@@ -20,11 +21,6 @@ const special = [..." !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"];
 const numeral = [..."0123456789"];
 const upAlpha = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
 const lowAlpha = [..."abcdefghijklmnopqrstuvwxyz"];
-// console.log(special);
-// console.log(numeral);
-// console.log(upAlpha);
-// console.log(lowAlpha);
-
 
 // main function to generate password
 var generatePassword = function() {
@@ -47,6 +43,7 @@ var generatePassword = function() {
       window.alert("You must select at least one character type to continue. Please try again.")
     }
   }
+  // next four ifs add arrays to pool of possible characters if true
   if (pass.spec) {
     pass.pool = pass.pool.concat(special);
   }
@@ -59,9 +56,15 @@ var generatePassword = function() {
   if (pass.upcase) {
     pass.pool = pass.pool.concat(upAlpha);
   }
-  console.log(pass.pool);
+  // loops an amount of times = to pass.amount
+  for (var i=0; i < pass.amount; i++) {
+    pass.word = pass.word.concat(pass.pool[Math.floor(Math.random() * pass.pool.length)]);
+  }
+  // briefly stores pass.word so the pass object can be reset before return
+  var passback = pass.word;
+  // resets pass object to be used again
   pass.reset();
-  // console.log(pass);
+  return passback;
 }
 
 // Get references to the #generate element
