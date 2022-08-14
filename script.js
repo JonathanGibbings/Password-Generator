@@ -1,22 +1,43 @@
 // Assignment code here
+// password object
 var pass = {
-  length: 0,
+  amount: 0,
   spec: false,
   num: false,
   lowcase: false,
   upcase: false,
-  word: NaN
+  pool: [],
+  word: NaN,
+  reset: function () {
+    this.amount = 0;
+    this.spec = pass.num = pass.lowcase = pass.upcase = false;
+    this.pool.length = 0;
+    this.word = NaN;
+  }
 };
+// constants - strings spread into arrays
+const special = [..." !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"];
+const numeral = [..."0123456789"];
+const upAlpha = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+const lowAlpha = [..."abcdefghijklmnopqrstuvwxyz"];
+// console.log(special);
+// console.log(numeral);
+// console.log(upAlpha);
+// console.log(lowAlpha);
 
+
+// main function to generate password
 var generatePassword = function() {
-  while (!pass.length) {
-    pass.length = window.prompt("How many characters would you like your password to be?");
-    pass.length = parseInt(pass.length);
-    if (pass.length > 128 || pass.length < 8 || !pass.length) {
+  // loops until an acceptable length is given
+  while (!pass.amount) {
+    pass.amount = window.prompt("How many characters would you like your password to be?");
+    pass.amount = parseInt(pass.amount);
+    if (pass.amount > 128 || pass.amount < 8 || !pass.amount) {
       window.alert("The value must be an integer between 8 and 128 characters. Please try again.");
-      pass.length = 0;
+      pass.amount = 0;
     }
   }
+  // loops until at least one character option is selected
   while (!pass.spec && !pass.num && !pass.lowcase && !pass.upcase) {
     pass.spec = window.confirm("Do you want your password to contain special characters?");
     pass.num = window.confirm("Do you want your password to contain numeric characters?");
@@ -26,7 +47,21 @@ var generatePassword = function() {
       window.alert("You must select at least one character type to continue. Please try again.")
     }
   }
-  console.log(pass);
+  if (pass.spec) {
+    pass.pool = pass.pool.concat(special);
+  }
+  if (pass.num) {
+    pass.pool = pass.pool.concat(numeral);
+  }
+  if (pass.lowcase) {
+    pass.pool = pass.pool.concat(lowAlpha);
+  }
+  if (pass.upcase) {
+    pass.pool = pass.pool.concat(upAlpha);
+  }
+  console.log(pass.pool);
+  pass.reset();
+  // console.log(pass);
 }
 
 // Get references to the #generate element
