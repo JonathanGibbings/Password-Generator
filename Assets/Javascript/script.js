@@ -19,8 +19,8 @@ var pass = {
 // constants - strings spread into arrays
 const special = [..." !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"];
 const numeral = [..."0123456789"];
-const upAlpha = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
 const lowAlpha = [..."abcdefghijklmnopqrstuvwxyz"];
+const upAlpha = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
 
 // main function to generate password
 var generatePassword = function() {
